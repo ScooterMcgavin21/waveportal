@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+  background: rgba(31, 41, 55);
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  margin-top: 6rem;
+}
+
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #741188;
+  padding: 0 2rem;
+}
+
+.main-header h1 {
+  color: white;
+}
+
+.card {
+  background: linear-gradient(-225deg, #ac32e4 0%, #7918f2 48%, #4801ff 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 40rem;
+  padding: 3rem;
+  margin: 2rem auto;
+}
+
+.button {
+  font: inherit;
+  border: 1px solid #4f005f;
+  background: #4f005f;
+  color: white;
+  padding: 0.75rem 3.5rem;
+  cursor: pointer;
+  font-size: 1.15rem;
+  border-radius: 30px;
+}
+
+.button:hover,
+.button:active {
+  background: #741188;
+  border-color: #741188;
+}
+
+.button:focus {
+  outline: none;
+}
+
+button:disabled,
+button:focus:disabled,
+button:hover:disabled,
+button:active:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  color: #666666;
+  cursor: not-allowed;
+}
