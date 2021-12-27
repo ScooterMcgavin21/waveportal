@@ -2,7 +2,7 @@
 
 ## Getting started
 
-This is a Web3 application using the Ethereum blockchain built as part of a buildspace project. [Deployed here](https://wave-portal-olive.vercel.app/)
+This is a Web3 application using the Ethereum blockchain built as part of a buildspace project. [Deployed here](https://waveportal-nine.vercel.app/)
 
 ## [Backend Technology](https://github.com/ScooterMcgavin21/waveportal/tree/main/backend)
 
