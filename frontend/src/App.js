@@ -2,8 +2,11 @@ import { ethers } from "ethers";
 import React, { useState } from "react";
 import './App.css';
 import Wallet from "./components/Wallet";
+import useWallet from "./hooks/useWallet";
 import abi from './utils/WavePortal.json';
 function App() {
+
+  const { loading, totalWaves } = useWallet();
 
   const [currentAccount, setCurrentAccount] = useState(""); // store users wallet
   const [allWaves, setAllWaves] = useState([]);
@@ -133,6 +136,10 @@ function App() {
         <div className="card">
           <p>Connect to an Ethereum Wallet and wave at me!</p>
           <Wallet />
+          {!loading && (
+            <div className="totalWaves">Number of waves: {totalWaves} </div>
+          )}
+          
           {/* {!currentAccount && 
             <button className="button" onClick={connectWallet}>
               Connect Wallet

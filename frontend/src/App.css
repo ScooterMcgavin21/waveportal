@@ -81,3 +81,8 @@ button:active:disabled {
   border-radius: 100%;
   background-color: #34d399;
 }
+
+.totalWaves {
+  text-align: center;
+  margin: 20px 0;
+}

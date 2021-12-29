@@ -1,17 +1,21 @@
+import { ethers } from "ethers";
 import { useEffect, useState } from 'react';
+import wavePortalAbi from '../utils/WavePortal.json';
 import useWindowFocus from './useWindowFocus';
-
-const contractAddress = '0x4388085C278eb32AE414ed0c082c3e06dE73e8a7'; // contract address after deploy
+const CONTRACT_ADDRESS = '0x4388085C278eb32AE414ed0c082c3e06dE73e8a7'; // contract address after deploy
 
 export default function useWallet() {
   const { ethereum } = window;
   const isWindowFocused = useWindowFocus();
+
+  
   
   const [currentAccount, setCurrentAccount] = useState(""); // store users wallet
   const [walletInstalled, setWalletInstalled] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
   const [loading, setLoading] = useState(null);
   const [walletError, setWalletError] = useState(null);
+  const [totalWaves, setTotalWaves] = useState(null);
 
   /**
    * useEffect using windowfocus hook to login to metamask and set states
@@ -21,6 +25,7 @@ export default function useWallet() {
       const status = async () => {
         setWalletInstalled(getWalletInstalled());
         setWalletConnected(await getWalletConnected());
+        setTotalWaves(await getTotalWaves());
         setLoading(false);
       };
       status();
@@ -44,7 +49,7 @@ export default function useWallet() {
   /**
    * return states and walletconnect
    */
-  return { walletInstalled, walletConnected, loading, walletError, connectWallet };
+  return { currentAccount, walletInstalled, walletConnected, loading, walletError, connectWallet, totalWaves };
 };
 /**
  * function check Called in windowfocus hook to return 
@@ -53,7 +58,7 @@ function getWalletInstalled() {
   return typeof window.ethereum !== 'undefined';
 };
 /**
- * function check called in windowfocus hook to return false if no window set
+ * function check called in windowfocus hook to return account
  */
 async function getWalletConnected() {
   if (!window.ethereum) {
@@ -69,3 +74,18 @@ async function getWalletConnected() {
   }
   return accounts.length !== 0;
 }
+/**
+ * func to get totalWaves 
+ */
+async function getTotalWaves() {
+  const contractABI = wavePortalAbi.abi;
+  if (!window.ethereum) {
+    return;
+  }
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const wavePortalContract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, provider);
+
+  const totalWaves = await wavePortalContract.getTotalWaves();
+  return totalWaves.toString();
+  
+};
