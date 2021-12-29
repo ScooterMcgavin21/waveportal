@@ -4,7 +4,7 @@ import Wallet from "./components/Wallet";
 import useWallet from "./hooks/useWallet";
 function App() {
 
-  const { loading, totalWaves} = useWallet();
+  const { loading, totalWaves, walletConnected} = useWallet();
 
   // const [currentAccount, setCurrentAccount] = useState(""); // store users wallet
   // const [allWaves, setAllWaves] = useState([]);
@@ -127,11 +127,18 @@ function App() {
     <div>
       <header className="main-header">
         <h1>Wave Portal</h1>
-        <nav className="nav"></nav>
+        <nav>
+        {walletConnected && (
+          <div className="nav-dot">
+            <span className="dotConnected" />
+            Wallet Connected
+          </div>
+        )}
+        </nav>
       </header>
       <main>
       
-        <div className="card">
+        <div className="container">
           <p>Connect to an Ethereum Wallet and wave at me!</p>
           <Wallet />
           {!loading && (

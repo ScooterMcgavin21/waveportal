@@ -11,7 +11,7 @@ function Wallet() {
     <div>
       {!walletInstalled && (
 				<a
-					className='button buttonNoWallet'
+					className='button NoWallet-button'
 					href='https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn/related'
 					target='_blank'
 					rel='noopener noreferrer'
@@ -20,21 +20,15 @@ function Wallet() {
 				</a>
 			)}
       {walletInstalled && !walletConnected && (
-				<button className='button' onClick={connectWallet}>
+				<button className='button connect-button' onClick={connectWallet}>
 					Connect MetaMask
 				</button>
 			)}
-      {walletConnected && (
-				<div>
-					<span className="dotConnected" />
-					Wallet Connected
-				</div>
-			)}
 			{walletConnected && (
 				<div>
-					<button className="button" onClick={wave}>
-              Wave
-            </button>
+					<button className="button wave-button" onClick={wave}>
+						👋
+          </button>
 				</div>
 			)}
     </div>
