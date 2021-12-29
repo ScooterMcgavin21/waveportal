@@ -3,7 +3,7 @@ import useWallet from '../hooks/useWallet';
 
 
 function Wallet() {
-  const { walletInstalled, walletConnected, loading, walletError, connectWallet, wave } = useWallet();
+  const { walletInstalled, walletConnected, loading, connectWallet, wave } = useWallet();
   if (loading) {
     return (<div>Loading...</div>);
   }

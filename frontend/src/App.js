@@ -4,7 +4,7 @@ import Wallet from "./components/Wallet";
 import useWallet from "./hooks/useWallet";
 function App() {
 
-  const { loading, totalWaves, wave } = useWallet();
+  const { loading, totalWaves} = useWallet();
 
   // const [currentAccount, setCurrentAccount] = useState(""); // store users wallet
   // const [allWaves, setAllWaves] = useState([]);

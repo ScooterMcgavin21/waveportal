@@ -62,7 +62,7 @@ export default function useWallet() {
   /**
    * return states and walletconnect
    */
-  return { currentAccount, walletInstalled, walletConnected, loading, walletError, connectWallet, totalWaves, wave };
+  return { currentAccount, walletInstalled, walletConnected, loading, walletError, connectWallet, totalWaves, wave, writeLoading};
 };
 /**
  * function check Called in windowfocus hook to return 
