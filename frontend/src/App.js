@@ -1,7 +1,8 @@
 import { ethers } from "ethers";
-import React, { useEffect, useState } from "react";
-import abi from '../utils/WavePortal.json';
+import React, { useState } from "react";
 import './App.css';
+import Wallet from "./components/Wallet";
+import abi from './utils/WavePortal.json';
 function App() {
 
   const [currentAccount, setCurrentAccount] = useState(""); // store users wallet
@@ -9,46 +10,46 @@ function App() {
   const contractAddress = '0x4388085C278eb32AE414ed0c082c3e06dE73e8a7'; // contract address after deploy
   const contractABI = abi.abi;  // referebce abi content
   
-  const checkIfWalletIsConnected = async () => {
-    try {
-      const { ethereum } = window;
-      if (!ethereum) {
-        console.log("Make sure you have metamask!");
-        return;
-      } else {
-        console.log("We have the ethereum object", ethereum);
-      }
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        console.log("Found an authorized account:", account);
-        setCurrentAccount(account);
-        getAllWaves();
-      } else {
-        console.log("No authorized account found")
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // const checkIfWalletIsConnected = async () => {
+  //   try {
+  //     const { ethereum } = window;
+  //     if (!ethereum) {
+  //       console.log("Make sure you have metamask!");
+  //       return;
+  //     } else {
+  //       console.log("We have the ethereum object", ethereum);
+  //     }
+  //     const accounts = await ethereum.request({ method: 'eth_accounts' });
+  //     if (accounts.length !== 0) {
+  //       const account = accounts[0];
+  //       console.log("Found an authorized account:", account);
+  //       setCurrentAccount(account);
+  //       getAllWaves();
+  //     } else {
+  //       console.log("No authorized account found")
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   /**
   * connectWallet method here
   */
-  const connectWallet = async () => {
-    try {
-      const { ethereum } = window;
-      if (!ethereum) {
-        alert("Get MetaMask!");
-        return;
-      }
-      const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-      console.log("Connected", accounts[0]);
-      setCurrentAccount(accounts[0]); 
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const connectWallet = async () => {
+  //   try {
+  //     const { ethereum } = window;
+  //     if (!ethereum) {
+  //       alert("Get MetaMask!");
+  //       return;
+  //     }
+  //     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+  //     console.log("Connected", accounts[0]);
+  //     setCurrentAccount(accounts[0]); 
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
   /**
    * method to get waves from contract
    */
@@ -117,9 +118,9 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, [])
+  // useEffect(() => {
+  //   checkIfWalletIsConnected();
+  // }, [])
   
   return (
     <div>
@@ -128,19 +129,21 @@ function App() {
         <nav className="nav"></nav>
       </header>
       <main>
+      
         <div className="card">
           <p>Connect to an Ethereum Wallet and wave at me!</p>
-          {!currentAccount && 
+          <Wallet />
+          {/* {!currentAccount && 
             <button className="button" onClick={connectWallet}>
               Connect Wallet
             </button>
-          }
-          {currentAccount && 
+          } */}
+          {/* {currentAccount && 
             <button className="button" onClick={wave}>
               Wave
             </button>
-          }
-          {allWaves.map((wave, index) => {
+          } */}
+          {/* {allWaves.map((wave, index) => {
             return (
               <div key={index} style={{ backgroundColor: "OldLace", marginTop: "16px", padding: "8px" }}>
                 <div>Address: {wave.address}</div>
@@ -148,7 +151,7 @@ function App() {
                 <div>Message: {wave.message}</div>
               </div>
             )
-          })}
+          })} */}
         </div>
       </main>
     </div>
