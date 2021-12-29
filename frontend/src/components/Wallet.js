@@ -3,7 +3,7 @@ import useWallet from '../hooks/useWallet';
 
 
 function Wallet() {
-  const { walletInstalled, walletConnected, loading, walletError, connectWallet } = useWallet();
+  const { walletInstalled, walletConnected, loading, walletError, connectWallet, wave } = useWallet();
   if (loading) {
     return (<div>Loading...</div>);
   }
@@ -28,6 +28,13 @@ function Wallet() {
 				<div>
 					<span className="dotConnected" />
 					Wallet Connected
+				</div>
+			)}
+			{walletConnected && (
+				<div>
+					<button className="button" onClick={wave}>
+              Wave
+            </button>
 				</div>
 			)}
     </div>

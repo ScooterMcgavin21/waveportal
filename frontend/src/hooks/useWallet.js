@@ -16,6 +16,7 @@ export default function useWallet() {
   const [loading, setLoading] = useState(null);
   const [walletError, setWalletError] = useState(null);
   const [totalWaves, setTotalWaves] = useState(null);
+  const [writeLoading, setWriteLoading] = useState(false);
 
   /**
    * useEffect using windowfocus hook to login to metamask and set states
@@ -47,9 +48,21 @@ export default function useWallet() {
 			});
 	};
   /**
+   * Write function to blockchain wave
+   */
+  const wave = async (reaction) => {
+    setWriteLoading(true);
+    const waveTxn = await writeWave(reaction);
+    console.log("Mining...", waveTxn.hash);
+    await waveTxn.wait();
+    //console.log("Mined -- ", waveTxn.hash);
+    console.log("Mined -- ", waveTxn.hash);
+    setWriteLoading(false);
+  }
+  /**
    * return states and walletconnect
    */
-  return { currentAccount, walletInstalled, walletConnected, loading, walletError, connectWallet, totalWaves };
+  return { currentAccount, walletInstalled, walletConnected, loading, walletError, connectWallet, totalWaves, wave };
 };
 /**
  * function check Called in windowfocus hook to return 
@@ -88,4 +101,15 @@ async function getTotalWaves() {
   const totalWaves = await wavePortalContract.getTotalWaves();
   return totalWaves.toString();
   
+};
+/**
+ * function to write to blockchain
+ */
+function writeWave(reaction) {
+  const contractABI = wavePortalAbi.abi;
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const wavePortalContract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, signer);
+
+  return wavePortalContract.wave(reaction);
 };
