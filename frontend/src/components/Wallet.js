@@ -19,17 +19,26 @@ function Wallet() {
 					Install MetaMask
 				</a>
 			)}
-      {walletInstalled && !walletConnected && (
+      {/* {walletInstalled && !walletConnected && (
 				<button className='button connect-button' onClick={connectWallet}>
 					Connect MetaMask
 				</button>
-			)}
+			)} */}
 			{walletConnected && (
 				<div>
 					<button className="button wave-button" onClick={wave}>
 						👋
           </button>
 				</div>
+			)}
+			{walletInstalled && !walletConnected && (
+				<button>
+					<div className='buttonx' onClick={connectWallet}>
+						<div className='slider1'></div>
+						<div className='slider2'></div>
+					</div>
+				</button>
+				
 			)}
     </div>
   )
