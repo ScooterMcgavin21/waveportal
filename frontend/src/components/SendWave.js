@@ -1,6 +1,6 @@
 import React from 'react';
 import useWallet from '../hooks/useWallet';
-import WaveCount from './waveCount';
+import WaveCount from './WaveCount';
 
 function SendWave() {
   const {wave, walletConnected, loading, writeLoading, totalWaves} = useWallet();
