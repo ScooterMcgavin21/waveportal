@@ -8,8 +8,9 @@ const CONTRACT_ADDRESS = '0x4388085C278eb32AE414ed0c082c3e06dE73e8a7'; // contra
  */
 export const WriteStatus = {
   None: 0,
-  Request: 1,
-  Pending: 2,
+  Connect: 1,
+  Request: 2,
+  Pending: 3,
 };
 export default function useWallet() {
   const { ethereum } = window;
@@ -26,25 +27,31 @@ export default function useWallet() {
   const [writeLoading, setWriteLoading] = useState(WriteStatus.None);
 
   /**
-   * useEffect using windowfocus hook to login to metamask and set states
+   * Update Wallet status on mount
    */
+  const status = async () => {
+    setWalletInstalled(getWalletInstalled());
+    setWalletConnected(await getWalletConnected());
+    setTotalWaves(await getTotalWaves());
+    setLoading(false);
+  };
+
   useEffect(() => {
-    if (isWindowFocused) {
-      const status = async () => {
-        setWalletInstalled(getWalletInstalled());
-        setWalletConnected(await getWalletConnected());
-        setTotalWaves(await getTotalWaves());
-        setLoading(false);
-      };
+    status();
+  }, []);
+  useEffect(() => {
+    if(isWindowFocused) {
       status();
     }
   }, [isWindowFocused]);
+
+
 
   /**
    * Connect Wallet method which 
    */
   const connectWallet = () => {
-		ethereum
+		return ethereum
 			.request({ method: "eth_requestAccounts" })
 			.then((accounts) => {
 				const [account] = accounts;
@@ -58,6 +65,15 @@ export default function useWallet() {
    * Write function to blockchain wave
    */
   const wave = async (reaction) => {
+    if(!walletInstalled) {
+      return;
+    }
+    // [WriteStatus.Connect] msg to connect to wallet if not already
+    if (!walletConnected) {
+      setWriteLoading(WriteStatus.Connect);
+      await connectWallet();
+      setWalletConnected(await getWalletConnected());
+    }
     setWriteLoading(WriteStatus.Request);
     /**
      * Disable Spinner loader once transaction request is rejected
@@ -78,7 +94,7 @@ export default function useWallet() {
   /**
    * return states and walletconnect
    */
-  return { currentAccount, walletInstalled, walletConnected, loading, walletError, connectWallet, totalWaves, wave, writeLoading};
+  return { currentAccount, walletInstalled, walletConnected, loading, walletError, connectWallet, totalWaves, wave, writeLoading };
 };
 /**
  * function check Called in windowfocus hook to return 

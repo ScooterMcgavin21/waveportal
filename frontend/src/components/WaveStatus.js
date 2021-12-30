@@ -2,8 +2,9 @@ import React from 'react';
 import { WriteStatus } from '../hooks/useWallet';
 import Spinner from './Spinner/Spinner';
 const WriteLoadingMessage = {
-  [WriteStatus.Request]: 'Checking wallet to make transaction',
-  [WriteStatus.Pending]: 'Wave transaction in route',
+  [WriteStatus.Connect]: 'Connect to ethereum wallet to continue.',
+  [WriteStatus.Request]: 'Checking wallet to make transaction.',
+  [WriteStatus.Pending]: 'Wave transaction in route.',
 }
 function WaveStatus({ loading, writeLoading, totalWaves}) {
   if (loading) {
