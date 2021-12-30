@@ -59,7 +59,7 @@ export default function useWallet() {
   /**
    * Write function to blockchain wave
    */
-  const wave = async (reaction, msg) => {
+  const wave = async ( msg) => {
     if(!walletInstalled) {
       return;
     }
@@ -73,7 +73,7 @@ export default function useWallet() {
     /**
      * Disable Spinner loader once transaction request is rejected
      */
-    writeWave(reaction, msg)
+    writeWave(msg)
       .then(async (waveTxn) => {
         setWriteLoading(WriteStatus.Pending);
         console.log("Mining...", waveTxn.hash);
@@ -133,11 +133,11 @@ async function getTotalWaves() {
 /**
  * function to write to blockchain
  */
-function writeWave(reaction, msg) {
+function writeWave(msg) {
   const contractABI = wavePortalAbi.abi;
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const wavePortalContract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, signer);
 
-  return wavePortalContract.wave(reaction, msg);
+  return wavePortalContract.wave( msg);
 };
