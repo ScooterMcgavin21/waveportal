@@ -7,12 +7,8 @@ html {
   font-family: sans-serif;
   background: rgba(31, 41, 55);
 }
-body {
-  margin: 0;
-}
-main {
-}
-.main-header {
+
+.nav {
   display: flex;
   top: 0;
   left: 0;
@@ -26,10 +22,12 @@ main {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.main-header h1 {
+.nav h1 {
   color: white;
 }
-
+.info {
+  text-align: center;
+}
 .container {
   display: grid;
   height: 300px;

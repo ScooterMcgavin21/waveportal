@@ -38,7 +38,6 @@ function Wallet() {
 						<div className='slider2'></div>
 					</div>
 				</button>
-				
 			)}
     </div>
   )
