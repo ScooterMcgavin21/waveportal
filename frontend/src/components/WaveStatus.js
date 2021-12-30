@@ -13,11 +13,9 @@ function WaveStatus({ loading, writeLoading, totalWaves}) {
     return(
       <div className="waveStatus">
         <p>{WriteLoadingMessage[writeLoading]}</p>
-        {/* <Spinnerx /> */}
         <div className='spindin'>
           <Spinner />
         </div>
-        
       </div>
     );
   }

@@ -59,16 +59,21 @@ export default function useWallet() {
    */
   const wave = async (reaction) => {
     setWriteLoading(WriteStatus.Request);
-
-    const waveTxn = await writeWave(reaction);
-    console.log("Mining...", waveTxn.hash);
-    setWriteLoading(WriteStatus.Pending);
-    await waveTxn.wait();
-    //console.log("Mined -- ", waveTxn.hash);
-
-    console.log("Mined -- ", waveTxn.hash);
-    setTotalWaves(await getTotalWaves());
-    setWriteLoading(WriteStatus.None);
+    /**
+     * Disable Spinner loader once transaction request is rejected
+     */
+    writeWave(reaction)
+      .then(async (waveTxn) => {
+        setWriteLoading(WriteStatus.Pending);
+        console.log("Mining...", waveTxn.hash);
+        await waveTxn.wait();
+        console.log("Mined -- ", waveTxn.hash);
+        setTotalWaves(await getTotalWaves());
+        setWriteLoading(WriteStatus.None);
+      })
+      .catch(() => {
+        setWriteLoading(WriteStatus.None);
+      });
   }
   /**
    * return states and walletconnect
