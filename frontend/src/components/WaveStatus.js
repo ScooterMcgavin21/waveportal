@@ -1,6 +1,6 @@
 import React from 'react';
 import { WriteStatus } from '../hooks/useWallet';
-
+import Spinner from './Spinner/Spinner';
 const WriteLoadingMessage = {
   [WriteStatus.Request]: 'Checking wallet to make transaction',
   [WriteStatus.Pending]: 'Wave transaction in route',
@@ -11,7 +11,14 @@ function WaveStatus({ loading, writeLoading, totalWaves}) {
 	}
   if(writeLoading) {
     return(
-      <div className="waveStatus">{WriteLoadingMessage[writeLoading]}</div>
+      <div className="waveStatus">
+        <p>{WriteLoadingMessage[writeLoading]}</p>
+        {/* <Spinnerx /> */}
+        <div className='spindin'>
+          <Spinner />
+        </div>
+        
+      </div>
     );
   }
   return (
