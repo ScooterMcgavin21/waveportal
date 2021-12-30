@@ -1,6 +1,5 @@
 import React from 'react';
 import useWallet from '../hooks/useWallet';
-import WaveCount from './WaveCount';
 function Wallet() {
   const { walletInstalled, walletConnected, loading, connectWallet, wave, writeLoading, totalWaves } = useWallet();
   if (loading) {
@@ -40,7 +39,7 @@ function Wallet() {
 						</div>
 					</button>
 				)}
-				<WaveCount loading={loading} writeLoading={writeLoading} totalWaves={totalWaves} />
+				
 			</section>
 		</div>
   )
