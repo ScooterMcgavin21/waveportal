@@ -24,13 +24,13 @@ function Wallet() {
 						Connect MetaMask
 					</button>
 				)} */}
-				{walletConnected && (
+				{/* {walletConnected && (
           <div>
             <button className="button wave-button" onClick={wave}>
               👋
             </button>
           </div>
-        )}
+        )} */}
 				{walletInstalled && !walletConnected && (
 					<button>
 						<div className='buttonx' onClick={connectWallet}>

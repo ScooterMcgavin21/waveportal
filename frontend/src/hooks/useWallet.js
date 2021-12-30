@@ -57,6 +57,7 @@ export default function useWallet() {
     await waveTxn.wait();
     //console.log("Mined -- ", waveTxn.hash);
     console.log("Mined -- ", waveTxn.hash);
+    setTotalWaves(await getTotalWaves());
     setWriteLoading(false);
   }
   /**
