@@ -2,7 +2,6 @@ import React from "react";
 import './App.css';
 import Info from "./components/Info";
 import Nav from "./components/Nav";
-import SendWave from "./components/SendWave";
 import Wallet from "./components/Wallet";
 
 function App() {
@@ -12,7 +11,7 @@ function App() {
       <div className="container">
         <Info />
         <Wallet />
-        <SendWave />
+        {/* <SendWave /> */}
       </div>
     </div>
   );
