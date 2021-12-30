@@ -1,7 +1,6 @@
 import React from 'react';
-import useWallet from '../hooks/useWallet';
-function Wallet() {
-  const { walletInstalled, walletConnected, loading, connectWallet} = useWallet();
+function Wallet({ walletInstalled, walletConnected, loading, connectWallet }) {
+  //const { walletInstalled, walletConnected, loading, connectWallet} = useWallet();
   if (loading) {
     return (<div>Loading...</div>);
   }

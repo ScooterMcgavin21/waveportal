@@ -4,6 +4,12 @@
 
 This is a Web3 application using the Ethereum blockchain built as part of a buildspace project. [Deployed here](https://waveportal-nine.vercel.app/)
 
+```sh
+git clone
+cd frontend
+npm run start
+```
+
 ## [Backend Technology](https://github.com/ScooterMcgavin21/waveportal/tree/main/backend)
 
 - [Hardhat](https://hardhat.org/) - Ethereum development environment
