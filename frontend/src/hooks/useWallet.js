@@ -3,7 +3,14 @@ import { useEffect, useState } from 'react';
 import wavePortalAbi from '../utils/WavePortal.json';
 import useWindowFocus from './useWindowFocus';
 const CONTRACT_ADDRESS = '0x4388085C278eb32AE414ed0c082c3e06dE73e8a7'; // contract address after deploy
-
+/**
+ * Writing loading status when waving
+ */
+export const WriteStatus = {
+  None: 0,
+  Request: 1,
+  Pending: 2,
+};
 export default function useWallet() {
   const { ethereum } = window;
   const isWindowFocused = useWindowFocus();
@@ -16,7 +23,7 @@ export default function useWallet() {
   const [loading, setLoading] = useState(null);
   const [walletError, setWalletError] = useState(null);
   const [totalWaves, setTotalWaves] = useState(null);
-  const [writeLoading, setWriteLoading] = useState(false);
+  const [writeLoading, setWriteLoading] = useState(WriteStatus.None);
 
   /**
    * useEffect using windowfocus hook to login to metamask and set states
@@ -51,14 +58,17 @@ export default function useWallet() {
    * Write function to blockchain wave
    */
   const wave = async (reaction) => {
-    setWriteLoading(true);
+    setWriteLoading(WriteStatus.Request);
+
     const waveTxn = await writeWave(reaction);
     console.log("Mining...", waveTxn.hash);
+    setWriteLoading(WriteStatus.Pending);
     await waveTxn.wait();
     //console.log("Mined -- ", waveTxn.hash);
+
     console.log("Mined -- ", waveTxn.hash);
     setTotalWaves(await getTotalWaves());
-    setWriteLoading(false);
+    setWriteLoading(WriteStatus.None);
   }
   /**
    * return states and walletconnect

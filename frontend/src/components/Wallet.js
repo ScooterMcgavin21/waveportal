@@ -1,7 +1,7 @@
 import React from 'react';
 import useWallet from '../hooks/useWallet';
 function Wallet() {
-  const { walletInstalled, walletConnected, loading, connectWallet, wave, writeLoading, totalWaves } = useWallet();
+  const { walletInstalled, walletConnected, loading, connectWallet} = useWallet();
   if (loading) {
     return (<div>Loading...</div>);
   }
@@ -24,13 +24,6 @@ function Wallet() {
 						Connect MetaMask
 					</button>
 				)} */}
-				{/* {walletConnected && (
-          <div>
-            <button className="button wave-button" onClick={wave}>
-              👋
-            </button>
-          </div>
-        )} */}
 				{walletInstalled && !walletConnected && (
 					<button>
 						<div className='buttonx' onClick={connectWallet}>

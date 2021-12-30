@@ -43,9 +43,11 @@ html {
 }
 .container p {
   color: white;
+  margin-bottom: 1rem;
 }
 .waveStatus {
   color: white;
+  margin: 30px 0;
 }
 
 button {
