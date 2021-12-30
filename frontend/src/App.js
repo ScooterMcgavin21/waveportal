@@ -3,7 +3,7 @@ import './App.css';
 import Info from "./components/Info";
 import Nav from "./components/Nav";
 import Wallet from "./components/Wallet";
-import WaveCount from "./components/waveCount";
+
 function App() {
   return (
     <div>
@@ -11,7 +11,7 @@ function App() {
       <div className="container">
         <Info />
         <Wallet />
-        <WaveCount />
+
       </div>
     </div>
   );
