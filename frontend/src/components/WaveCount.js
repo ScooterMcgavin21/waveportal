@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function waveCount({loading, writeLoading, totalWaves}) {
+export default function WaveCount({loading, writeLoading, totalWaves}) {
   if(loading){
     return null;
   }
