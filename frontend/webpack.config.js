@@ -2,11 +2,12 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 let mode = "development";
 const plugins = [
   new CleanWebpackPlugin(),
   new MiniCssExtractPlugin(),
+  new NodePolyfillPlugin(),
   new HtmlWebpackPlugin({
     template: "./src/index.html",
   }),
@@ -26,6 +27,7 @@ module.exports = {
   devServer: {
     static: './dist',
     hot: true,
+    open: true
   },
   resolve: {
     extensions: [".js", ".jsx"],
@@ -58,13 +60,5 @@ module.exports = {
     ],
   },
 
-
-
-
-
-
-
-
-
-  plugins: plugins
+  plugins: plugins,
 };

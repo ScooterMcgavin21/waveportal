@@ -1,5 +1,3 @@
-
-   
 const plugins = [["babel-plugin-styled-components"],["@babel/transform-runtime"]];
 module.exports = {
   presets: [
