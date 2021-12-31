@@ -41,7 +41,21 @@ export default function useWallet() {
       setAllWaveData(await getAllWaves());
     };
     updateRun();
-  }, [setTotalWaves, setAllWaveData]); 
+  }, [setTotalWaves, setAllWaveData]);
+  
+  /**listen for Emmiter Events */
+  const addNewWaveData = useCallback(
+    (newWave) => {
+      setAllWaveData([newWave, ...allWaveData]);
+    },
+    [allWaveData],
+  );
+  /** Subscribe once when mounting component */
+  useEffect(() => {
+    subscribeToWaveEvents((newWave) => {
+      addNewWaveData(newWave);
+    });
+  }, [])
 
   useEffect(() => {
     // checking the status when window focus chaange
@@ -167,6 +181,9 @@ function writeWave(msg) {
  * calling getAllWaves method from smart contract to get all waves, handles storing messages
  */
 async function getAllWaves() {
+  if (!window.ethereum) {
+    return;
+  }
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const wavePortalContract = new ethers.Contract(CONTRACT_ADDRESS, wavePortalAbi.abi, provider);
 
@@ -185,3 +202,15 @@ async function getAllWaves() {
 
   return waves.map(normalizeWave).sort((a,b) => b.timeStamp - a.timeStamp);
 };
+
+/** subscribing to new wave events */
+function subscribeToWaveEvents(callback) {
+  if (!window.ethereum) {
+    return;
+  }
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+	const wavePortalContract = new ethers.Contract(CONTRACT_ADDRESS, wavePortalAbi.abi, provider);
+  wavePortalContract.on('NewWave', (message, waver, timestamp) => {
+    callback({ message, waver, timestamp });
+  });
+}
