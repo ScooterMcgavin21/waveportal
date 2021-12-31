@@ -19,9 +19,10 @@ contract WavePortal {
     }
     /** stores an array of structs that contains the waves sent */
     Wave[] waves;
-
+    /** mapping so can associate an address with a number, storing address with last time user waved */
+    mapping(address => uint256) public lastWavedAt;
     constructor() payable {
-        console.log("I am a smart contract");
+        console.log("I is smart... contract");
         seed = (block.timestamp + block.difficulty) % 100; // sets the seed for random drawing
     }
     /**
@@ -29,10 +30,14 @@ contract WavePortal {
     * seed var changes every time a user sends a new wave
     */
     function wave(string memory _message) public {
+        /** makesure current timestamp is 15 min bigger than last timestamp stored */
+        require(lastWavedAt[msg.sender] + 2 minutes < block.timestamp, 'Wait 2 minutes before waving again.');
+        /** updates current timestamp for user */
+        lastWavedAt[msg.sender] = block.timestamp;
+
         totalWaves += 1;
         console.log('%s has waved with message', msg.sender);
         waves.push(Wave(msg.sender, _message, block.timestamp));
-
         /** generate new seed for next user that sends a wave */
         seed = (block.difficulty + block.timestamp + seed) % 100;
         console.log("Random # generated: %d", seed);
