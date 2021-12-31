@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { useCallback, useEffect, useState } from 'react';
 import wavePortalAbi from '../utils/WavePortal.json';
 import useWindowFocus from './useWindowFocus';
-const CONTRACT_ADDRESS = '0x4388085C278eb32AE414ed0c082c3e06dE73e8a7'; // contract address after deploy
+const CONTRACT_ADDRESS = '0x1f13ceE871650B869526D5CcBC2A321ef0a9F49F'; // contract address after deploy
 /**
  * Writing loading status when waving
  */
