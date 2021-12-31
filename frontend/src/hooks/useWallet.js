@@ -44,16 +44,17 @@ export default function useWallet() {
   }, [setTotalWaves, setAllWaveData]);
   
   /**listen for Emmiter Events */
-  const addNewWaveData = useCallback(
-    (newWave) => {
-      setAllWaveData([newWave, ...allWaveData]);
-    },
-    [allWaveData],
-  );
+  // const addNewWaveData = useCallback(
+  //   (newWave) => {
+  //     setAllWaveData([newWave, ...allWaveData]);
+  //   },
+  //   [allWaveData],
+  // );
   /** Subscribe once when mounting component */
   useEffect(() => {
     subscribeToWaveEvents((newWave) => {
-      addNewWaveData(newWave);
+      // addNewWaveData(newWave);
+      waveUpdate();
     });
   }, [])
 
@@ -173,7 +174,7 @@ function writeWave(msg) {
   const wavePortalContract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, signer);
 
   return wavePortalContract.wave(msg, {
-    gasLimit: 300000,
+    gasLimit: 400000,
   });
 };
 
