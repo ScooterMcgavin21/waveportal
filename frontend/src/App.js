@@ -9,7 +9,9 @@ import useWallet from "./hooks/useWallet";
 function App() {
   const { walletInstalled, walletConnected, connectWallet, loading, writeLoading, totalWaves, wave, allWaveData } = useWallet();
   return (
+    
     <div>
+
       <Nav />
       <div className="container">
         <Info />
@@ -27,6 +29,7 @@ function App() {
         />
         <WaveData allWaveData={allWaveData} />
       </div>
+
     </div>
   );
 }
