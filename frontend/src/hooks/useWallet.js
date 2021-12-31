@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import wavePortalAbi from '../utils/WavePortal.json';
 import useWindowFocus from './useWindowFocus';
 const CONTRACT_ADDRESS = '0x4388085C278eb32AE414ed0c082c3e06dE73e8a7'; // contract address after deploy
@@ -16,8 +16,6 @@ export default function useWallet() {
   const { ethereum } = window;
   const isWindowFocused = useWindowFocus();
 
-  
-  
   const [currentAccount, setCurrentAccount] = useState(""); // store users wallet
   const [walletInstalled, setWalletInstalled] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
@@ -30,21 +28,33 @@ export default function useWallet() {
   /**
    * Update Wallet status on mount
    */
-  const status = async () => {
-    setWalletInstalled(getWalletInstalled());
-    setWalletConnected(await getWalletConnected());
-    waveUpdate();
-    setLoading(false);
-  };
+  // const status = async () => {
+  //   setWalletInstalled(getWalletInstalled());
+  //   setWalletConnected(await getWalletConnected());
+  //   waveUpdate();
+  //   setLoading(false);
+  // };
 
-  const waveUpdate = async () => {
-    setTotalWaves(await getTotalWaves());
-    setAllWaveData(await getAllWaves());
-  };
+  const waveUpdate = useCallback(() => {
+    const updateRun = async () => {
+      setTotalWaves(await getTotalWaves());
+      setAllWaveData(await getAllWaves());
+    };
+    updateRun();
+  }, [setTotalWaves, setAllWaveData]); 
 
   useEffect(() => {
-    status();
-  }, [isWindowFocused]);
+    // checking the status when window focus chaange
+    if(isWindowFocused){
+    }
+    const updateRun = async () => {
+      setWalletInstalled(getWalletInstalled());
+      setWalletConnected(await getWalletConnected());
+      waveUpdate();
+      setLoading(false);
+    };
+    updateRun();
+  }, [isWindowFocused, setWalletInstalled, setWalletConnected, waveUpdate, setLoading]);
 
 
 
