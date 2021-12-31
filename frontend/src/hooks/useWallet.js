@@ -101,6 +101,7 @@ export default function useWallet() {
         setWriteLoading(WriteStatus.None);
       })
       .catch((error) => {
+        window.alert("Failed to write transaction!");
         console.error(error);
         setWriteLoading(WriteStatus.None);
       });
@@ -157,7 +158,9 @@ function writeWave(msg) {
   const signer = provider.getSigner();
   const wavePortalContract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, signer);
 
-  return wavePortalContract.wave( msg);
+  return wavePortalContract.wave(msg, {
+    gasLimit: 300000,
+  });
 };
 
 /**
