@@ -25,6 +25,7 @@ export default function useWallet() {
   const [walletError, setWalletError] = useState(null);
   const [totalWaves, setTotalWaves] = useState(null);
   const [writeLoading, setWriteLoading] = useState(WriteStatus.None);
+  const [allWaveData, setAllWaveData] = useState([]);
 
   /**
    * Update Wallet status on mount
@@ -32,8 +33,13 @@ export default function useWallet() {
   const status = async () => {
     setWalletInstalled(getWalletInstalled());
     setWalletConnected(await getWalletConnected());
-    setTotalWaves(await getTotalWaves());
+    waveUpdate();
     setLoading(false);
+  };
+
+  const waveUpdate = async () => {
+    setTotalWaves(await getTotalWaves());
+    setAllWaveData(await getAllWaves());
   };
 
   useEffect(() => {
@@ -77,9 +83,11 @@ export default function useWallet() {
       .then(async (waveTxn) => {
         setWriteLoading(WriteStatus.Pending);
         console.log("Mining...", waveTxn.hash);
+
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);
-        setTotalWaves(await getTotalWaves());
+
+        waveUpdate();
         setWriteLoading(WriteStatus.None);
       })
       .catch((error) => {
@@ -90,7 +98,7 @@ export default function useWallet() {
   /**
    * return states and walletconnect
    */
-  return { currentAccount, walletInstalled, walletConnected, loading, walletError, connectWallet, totalWaves, wave, writeLoading };
+  return { currentAccount, walletInstalled, walletConnected, loading, walletError, connectWallet, totalWaves, wave, writeLoading, allWaveData };
 };
 /**
  * function check Called in windowfocus hook to return 
@@ -140,4 +148,27 @@ function writeWave(msg) {
   const wavePortalContract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, signer);
 
   return wavePortalContract.wave( msg);
+};
+
+/**
+ * calling getAllWaves method from smart contract to get all waves, handles storing messages
+ */
+async function getAllWaves() {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const wavePortalContract = new ethers.Contract(CONTRACT_ADDRESS, wavePortalAbi.abi, provider);
+
+  // calls getAllWaves method from contract
+  const waves = await wavePortalContract.getAllWaves();
+
+  if(!waves) {
+    return [];
+  }
+
+  const normalizeWave = (wave) => ({
+    message: wave.message,
+    address: wave.address,
+    timeStamp: new Date(wave.timeStamp * 1000)
+  });
+
+  return waves.map(normalizeWave).sort((a,b) => b.timeStamp - a.timeStamp);
 };

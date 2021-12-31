@@ -11,11 +11,24 @@
     "build-dev": "webpack",
     "clean": "rm -rf dist"
   },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/index.js"
+    ],
+    "coverageReporters": [
+      "text"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.16.5",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "ethers": "^5.5.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -29,6 +42,9 @@
     "babel-plugin-styled-components": "^2.0.2",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.5.1",
+    "dayjs": "^1.10.7",
+    "enzyme": "^3.11.0",
+    "enzyme-to-json": "^3.6.2",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.5",
     "postcss": "^8.4.5",

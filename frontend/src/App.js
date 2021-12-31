@@ -4,9 +4,10 @@ import Info from "./components/Info";
 import Nav from "./components/Nav";
 import SendWave from "./components/SendWave";
 import Wallet from "./components/Wallet";
+import WaveData from "./components/WaveData";
 import useWallet from "./hooks/useWallet";
 function App() {
-  const { walletInstalled, walletConnected, connectWallet, loading, writeLoading, totalWaves, wave } = useWallet();
+  const { walletInstalled, walletConnected, connectWallet, loading, writeLoading, totalWaves, wave, allWaveData } = useWallet();
   return (
     <div>
       <Nav />
@@ -24,6 +25,7 @@ function App() {
           totalWaves={totalWaves}
           wave={wave}
         />
+        <WaveData allWaveData={allWaveData} />
       </div>
     </div>
   );
