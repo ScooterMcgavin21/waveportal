@@ -30,7 +30,7 @@ contract WavePortal {
     */
     function wave(string memory _message) public {
         totalWaves += 1;
-        console.log('%s has waved with message %s', msg.sender);
+        console.log('%s has waved with message', msg.sender);
         waves.push(Wave(msg.sender, _message, block.timestamp));
 
         /** generate new seed for next user that sends a wave */
