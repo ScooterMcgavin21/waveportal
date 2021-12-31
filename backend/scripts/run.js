@@ -1,44 +1,36 @@
 const main = async () => {
-  // random wallet address named randomPerson
-  // const [owner, randomPerson] = await hre.ethers.getSigners();
-  // compiles contract and generates files under artifacts 
+  /** Deploy contract and fund it with 0.1 eth */
   const waveContractFactory = await hre.ethers.getContractFactory('WavePortal');
-  // local eth network created by hardhat 
-  const waveContract = await waveContractFactory.deploy();
-  // wait till contracts deployed
+  const waveContract = await waveContractFactory.deploy({
+    value: hre.ethers.utils.parseEther("0.1"),
+  });
   await waveContract.deployed();
-  // waveContract.address gives address of the deployed contract
-  console.log('Contract deployed to:', waveContract.address);
-  // console.log('Contract deployed by:', owner.address);
+  console.log('Contract Address:', waveContract.address);
 
-  // call fnx to grab number of total waves, then wave, grab waveCount one more time to see changes
-  let waveCount;
-  waveCount = await waveContract.getTotalWaves();
-  console.log(waveCount.toNumber());
-  /**
-   * Send waves
-   */
+  /** Contract Balance -> hre.ethers.utils.formatEther(contractBalance) tests to see contract has balance */
+  let contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
+  console.log('Contract Balance:', hre.ethers.utils.formatEther(contractBalance));
+
+  /** sends wave */
   let waveTxn = await waveContract.wave('A message');
   await waveTxn.wait(); // wait forr transaction to be mined. 
 
-  const [_, randomPerson] = await hre.ethers.getSigners();
-  waveTxn = await waveContract.connect(randomPerson).wave('Another message!');
-  await waveTxn.wait();
+  /** get contract balance  */
+  contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
+  console.log('Contract Balance:', hre.ethers.utils.formatEther(contractBalance));
 
   let allWaves = await waveContract.getAllWaves();
   console.log(allWaves);
-
-  // let waveTxn = await waveContract.wave();
-  // await waveTxn.wait();
-
+  // local eth network created by hardhat 
+  // const waveContract = await waveContractFactory.deploy();
+  // let waveCount;
   // waveCount = await waveContract.getTotalWaves();
-
-  // // simulate other people hitting functions 
-  // waveTxn = await waveContract.connect(randomPerson).wave();
+  // console.log(waveCount.toNumber());
+  // const [_, randomPerson] = await hre.ethers.getSigners();
+  // waveTxn = await waveContract.connect(randomPerson).wave('Another message!');
   // await waveTxn.wait();
-  // // rupdate total waves
-  // waveCount = await waveContract.getTotalWaves();
-
+  // let allWaves = await waveContract.getAllWaves();
+  // console.log(allWaves);
 };
 
 const runMain = async () => {
@@ -50,5 +42,4 @@ const runMain = async () => {
     process.exit(1);
   }
 };
-
 runMain();

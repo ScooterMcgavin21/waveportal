@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: UNLICENSED
-
 pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
@@ -31,8 +30,6 @@ contract WavePortal {
       
         waves.push(Wave(msg.sender, _message, block.timestamp));  
         emit NewWave(msg.sender, block.timestamp, _message); // stores the arguments passed in transaction logs 
-
-
         /**initiate prize amt and has a require check to makesure contract balance is greater than 'prize
          * balance.(this).balance (balance of contract) has enough funds
          * (msg.sender) sends eth
@@ -49,7 +46,6 @@ contract WavePortal {
     }
 
     function getTotalWaves() public view returns (uint256) {
-        console.log('We have %d total waves', totalWaves);
         return totalWaves;
     }
 }
