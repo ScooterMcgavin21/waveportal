@@ -7,10 +7,7 @@ import "hardhat/console.sol";
 contract WavePortal {
     uint256 totalWaves;
 
-
-    // wave event
     event NewWave(address indexed from, uint256 timestamp, string message);
-    
     /**
     * store address of the user who waves
     * the message the user sent
@@ -21,30 +18,38 @@ contract WavePortal {
         string message; 
         uint256 timestamp; 
     }
-    /**
-    * stores an array of structs that contains the waves sent
-    */
+    /** stores an array of structs that contains the waves sent */
     Wave[] waves;
 
-    constructor() {
+    constructor() payable {
         console.log("I am a smart contract");
     }
     // like a public API endpoint
     function wave(string memory _message) public {
         totalWaves += 1;
-        console.log('%s has waved with message %s', msg.sender, _message);
-        waves.push(Wave(msg.sender, _message, block.timestamp));  // store wave data in the array
+        console.log('%s has waved with message %s', msg.sender);
+      
+        waves.push(Wave(msg.sender, _message, block.timestamp));  
         emit NewWave(msg.sender, block.timestamp, _message); // stores the arguments passed in transaction logs 
+
+
+        /**initiate prize amt and has a require check to makesure contract balance is greater than 'prize
+         * balance.(this).balance (balance of contract) has enough funds
+         * (msg.sender) sends eth
+         */
+        uint256 prizeAmount = 0.0001 ether;
+        require(prizeAmount <= address(this).balance, 'Attempt to withdraw more eth than the contract has');
+        (bool success, ) = (msg.sender).call{value: prizeAmount}("");
+        require(success, 'Yo, this contract cant even pay you out!');
+
     }
-    /**
-     * returns the struct array, waves to make it easier to retrieve the waves from website
-     */
+    /** returns the struct array, waves to make it easier to retrieve the waves from website */
     function getAllWaves() public view returns (Wave[] memory){
-      return waves;
+        return waves;
     }
 
     function getTotalWaves() public view returns (uint256) {
-      console.log('We have %d total waves', totalWaves);
-      return totalWaves;
+        console.log('We have %d total waves', totalWaves);
+        return totalWaves;
     }
 }
