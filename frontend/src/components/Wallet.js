@@ -1,6 +1,7 @@
 import React from 'react';
+import { NavBtn } from './ButtonTest';
 function Wallet({ walletInstalled, walletConnected, loading, connectWallet }) {
-  //const { walletInstalled, walletConnected, loading, connectWallet} = useWallet();
+ 
   if (loading) {
     return (<div>Loading...</div>);
   }
@@ -18,19 +19,21 @@ function Wallet({ walletInstalled, walletConnected, loading, connectWallet }) {
 						Install MetaMask
 					</a>
 				)}
+			
+				
 				{/* {walletInstalled && !walletConnected && (
 					<button className='button connect-button' onClick={connectWallet}>
 						Connect MetaMask
 					</button>
 				)} */}
-				{walletInstalled && !walletConnected && (
-					<button>
+				{/* {walletInstalled && !walletConnected && (
+		
 						<div className='buttonx' onClick={connectWallet}>
 							<div className='slider1'></div>
 							<div className='slider2'></div>
 						</div>
-					</button>
-				)}
+
+				)} */}
 				
 			</section>
 		</div>

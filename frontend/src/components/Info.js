@@ -1,10 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Intro = styled.p`
-  text-align: center;
-  color: white;
-`;
 export default function Info() {
   return (
     <Intro>
@@ -14,4 +10,8 @@ export default function Info() {
   );
 }
 
-
+const Intro = styled.p`
+  text-align: center;
+  color: white;
+  padding: 1rem;
+`;

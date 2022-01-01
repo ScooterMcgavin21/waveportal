@@ -1,6 +1,6 @@
 import React from 'react';
+import styled from 'styled-components';
 import Wave from './Wave';
-import './WaveData.css';
 /**
  * maps through wave data from smart contract, stored in state hook 
  */
@@ -9,17 +9,26 @@ function WaveData({ allWaveData }) {
     return null;
   };
   return (
-    <div className='allWaveData'>
+    <WaveDataContainer>
       {allWaveData.map((wave, index) =>(
         <Wave 
           key={index}
           message={wave.message}
-          address={wave.address}
+          address={wave.waver}
           timestamp={wave.timestamp}
         />
       ))}
-    </div>
+    </WaveDataContainer>
   )
 }
-
 export default WaveData;
+
+export const WaveDataContainer = styled.div`
+  display: grid;
+  height: 5rem;
+  width: 100%;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+`;

@@ -1,14 +1,14 @@
-import React from 'react';
-import './Spinner.css';
-function Spinner() {
-  return (
-    <div className="spin-container">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-  );
-}
+import React from "react";
+import "./Spinner.css";
 
-export default Spinner;
+
+export default function Spinner() {
+	return (
+		<div className="lds-ellipsis">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	);
+}

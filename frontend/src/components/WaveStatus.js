@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { WriteStatus } from '../hooks/useWallet';
 import Spinner from './Spinner/Spinner';
 const WriteLoadingMessage = {
@@ -12,19 +13,21 @@ function WaveStatus({ loading, writeLoading, totalWaves}) {
 	}
   if(writeLoading) {
     return(
-      <div className="waveStatus">
+      <WaveStatusx>
         <p>{WriteLoadingMessage[writeLoading]}</p>
-        <div className='spindin'>
           <Spinner />
-        </div>
-      </div>
+      </WaveStatusx>
     );
   }
   return (
-    <div className="waveStatus">
-      Number of waves: {totalWaves} 
-    </div>
+    <WaveStatusx>
+      Number of waves ➡️  {totalWaves} 
+    </WaveStatusx>
   )
 }
 
 export default WaveStatus;
+
+const WaveStatusx = styled.div`
+  margin-bottom: 1rem;
+`;

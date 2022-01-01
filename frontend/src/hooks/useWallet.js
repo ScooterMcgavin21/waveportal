@@ -197,7 +197,7 @@ async function getAllWaves() {
 
   const normalizeWave = (wave) => ({
     message: wave.message,
-    address: wave.address,
+    waver: wave.waver,
     timeStamp: new Date(wave.timeStamp * 1000)
   });
 

@@ -1,25 +1,26 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import './Wave.css';
+import styled from 'styled-components';
+
 /**
  * Wave function from backend/contracts/waveportal.sol
  */
-function Wave({ message, address, timestamp }) {
+function Wave({ message, waver, timestamp }) {
   return (
-    <div className='wave'>
-      <div className='wave-body'>
+    <WaveContainer>
+      <WaveBody>
         <dl>
           <dt>From Address:</dt>
-          <dt>{address}</dt>
+          <dt>{waver}</dt>
           <dt>TimeStamp:</dt>
           <dd>
             {formatDate(timestamp)} at {formatTime(timestamp)}
           </dd>
         </dl>
-        <div className='message'>{message}</div>
-      </div>
+        <Message>{message}</Message>
+      </WaveBody>
       
-    </div>
+    </WaveContainer>
   )
 }
 
@@ -33,3 +34,40 @@ function formatDate(timestamp){
 function formatTime(timestamp){
   return dayjs(timestamp).format('h:mm:ss a');
 };
+
+export const WaveContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  padding: 15px 10px;
+  justify-content: flex-start;
+  background-color: rgba(55, 65, 81, 0.8);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+`;
+export const WaveBody = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  dl{
+    display: grid;
+    gap: 5px 10px;
+    grid-template-columns: auto 1fr;
+    margin: 0;
+  }
+  dt{
+    color: #6ee7b7;
+    font-weight: 500;
+    margin: 0;
+  }
+  dd{
+    margin: 0;
+  }
+`;
+
+
+export const Message = styled.div`
+  margin-top: 10px;
+  text-align: center;
+`;
