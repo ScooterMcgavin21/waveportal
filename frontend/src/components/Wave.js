@@ -13,9 +13,9 @@ function Wave({ message, waver, timestamp }) {
           <dt>From Address:</dt>
           <dt>{waver}</dt>
           <dt>TimeStamp:</dt>
-          <dd>
-            {formatDate(timestamp)} at {formatTime(timestamp)}
-          </dd>
+          <dt>
+            {formatDate(timestamp)} at {formatTime(timestamp).toUpperCase()}
+          </dt>
         </dl>
         <Message>{message}</Message>
       </WaveBody>
@@ -36,20 +36,20 @@ function formatTime(timestamp){
 };
 
 export const WaveContainer = styled.div`
-  display: flex;
-  gap: 20px;
-  padding: 15px 10px;
-  justify-content: flex-start;
+
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
   background-color: rgba(55, 65, 81, 0.8);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+
+
 
 `;
 export const WaveBody = styled.div`
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  position: relative;
+  justify-content: center;
+
+  margin: 1rem;
   dl{
     display: grid;
     gap: 5px 10px;
@@ -59,15 +59,13 @@ export const WaveBody = styled.div`
   dt{
     color: #6ee7b7;
     font-weight: 500;
-    margin: 0;
-  }
-  dd{
-    margin: 0;
+    margin: 1rem;
   }
 `;
 
 
 export const Message = styled.div`
-  margin-top: 10px;
   text-align: center;
+  color: aqua;
+  margin-bottom: 2rem;
 `;

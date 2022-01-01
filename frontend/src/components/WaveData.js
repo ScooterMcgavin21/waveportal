@@ -14,7 +14,7 @@ function WaveData({ allWaveData }) {
         <Wave 
           key={index}
           message={wave.message}
-          address={wave.waver}
+          waver={wave.waver}
           timestamp={wave.timestamp}
         />
       ))}
@@ -24,11 +24,12 @@ function WaveData({ allWaveData }) {
 export default WaveData;
 
 export const WaveDataContainer = styled.div`
-  display: grid;
-  height: 5rem;
-  width: 100%;
-  grid-template-columns: auto auto;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1rem;
+
+  justify-content: center;
+  width: 50%;
+  margin-left: 25rem;
+  overflow-y: scroll;
+  height: 175px;
+  
+ 
 `;
