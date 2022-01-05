@@ -2,12 +2,11 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 let mode = "development";
 const plugins = [
   new CleanWebpackPlugin(),
   new MiniCssExtractPlugin(),
-  new NodePolyfillPlugin(),
   new HtmlWebpackPlugin({
     template: "./src/index.html",
   }),
@@ -15,6 +14,9 @@ const plugins = [
 
 if (process.env.NODE_ENV === "production") {
   mode = "production";
+}
+if (process.env.SERVE) {
+  plugins.push(new ReactRefreshWebpackPlugin())
 }
 module.exports = {
   mode: mode,
